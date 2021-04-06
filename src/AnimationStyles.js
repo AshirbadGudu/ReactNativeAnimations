@@ -1,14 +1,13 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, Easing, StyleSheet, View} from 'react-native';
+import {Animated, StyleSheet, View} from 'react-native';
 
 const AnimationStyles = () => {
   const translation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(translation, {
+    Animated.spring(translation, {
       toValue: 100,
       useNativeDriver: true,
-      easing: Easing.bounce,
     }).start();
   }, []);
   return (
@@ -21,7 +20,7 @@ const AnimationStyles = () => {
           borderRadius: 5,
           transform: [
             {
-              translateX: translation,
+              translateY: translation,
             },
           ],
         }}
