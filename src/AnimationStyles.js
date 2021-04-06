@@ -1,15 +1,14 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, StyleSheet, View} from 'react-native';
+import {Animated, Easing, StyleSheet, View} from 'react-native';
 
 const AnimationStyles = () => {
   const translation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(translation, {
-      toValue: 140,
-      delay: 1000,
-      duration: 5000,
+      toValue: 100,
       useNativeDriver: true,
+      easing: Easing.bounce,
     }).start();
   }, []);
   return (
