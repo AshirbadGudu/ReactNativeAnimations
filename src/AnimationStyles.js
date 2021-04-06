@@ -2,29 +2,22 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 
 const AnimationStyles = () => {
-  const translation = useRef(
-    new Animated.ValueXY({
-      x: 0,
-      y: 0,
-    }),
-  ).current;
+  const opacityOne = useRef(new Animated.Value(0)).current;
+  const opacityTwo = useRef(new Animated.Value(0)).current;
+  const opacityThree = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.sequence([
-      Animated.spring(translation.x, {
-        toValue: -100,
+    Animated.stagger(100, [
+      Animated.timing(opacityOne, {
+        toValue: 1,
         useNativeDriver: true,
       }),
-      Animated.spring(translation.y, {
-        toValue: -100,
+      Animated.timing(opacityTwo, {
+        toValue: 1,
         useNativeDriver: true,
       }),
-      Animated.spring(translation.x, {
-        toValue: 0,
-        useNativeDriver: true,
-      }),
-      Animated.spring(translation.y, {
-        toValue: 0,
+      Animated.timing(opacityThree, {
+        toValue: 1,
         useNativeDriver: true,
       }),
     ]).start();
@@ -38,12 +31,30 @@ const AnimationStyles = () => {
           backgroundColor: '#fff',
           elevation: 5,
           borderRadius: 5,
-          transform: [
-            {
-              translateX: translation.x,
-              translateY: translation.y,
-            },
-          ],
+          marginBottom: 10,
+          opacity: opacityOne,
+        }}
+      />
+      <Animated.View
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: '#fff',
+          elevation: 5,
+          borderRadius: 5,
+          marginBottom: 10,
+          opacity: opacityTwo,
+        }}
+      />
+      <Animated.View
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: '#fff',
+          elevation: 5,
+          borderRadius: 5,
+          marginBottom: 10,
+          opacity: opacityThree,
         }}
       />
     </View>
