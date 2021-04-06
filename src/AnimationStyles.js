@@ -2,13 +2,32 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 
 const AnimationStyles = () => {
-  const translation = useRef(new Animated.Value(0)).current;
+  const translation = useRef(
+    new Animated.ValueXY({
+      x: 0,
+      y: 0,
+    }),
+  ).current;
 
   useEffect(() => {
-    Animated.spring(translation, {
-      toValue: 100,
-      useNativeDriver: true,
-    }).start();
+    Animated.sequence([
+      Animated.spring(translation.x, {
+        toValue: -100,
+        useNativeDriver: true,
+      }),
+      Animated.spring(translation.y, {
+        toValue: -100,
+        useNativeDriver: true,
+      }),
+      Animated.spring(translation.x, {
+        toValue: 0,
+        useNativeDriver: true,
+      }),
+      Animated.spring(translation.y, {
+        toValue: 0,
+        useNativeDriver: true,
+      }),
+    ]).start();
   }, []);
   return (
     <View style={styles.screenWrapper}>
@@ -16,11 +35,13 @@ const AnimationStyles = () => {
         style={{
           width: 100,
           height: 100,
-          backgroundColor: 'green',
+          backgroundColor: '#fff',
+          elevation: 5,
           borderRadius: 5,
           transform: [
             {
-              translateY: translation,
+              translateX: translation.x,
+              translateY: translation.y,
             },
           ],
         }}
@@ -36,5 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#9f98e8',
   },
 });
