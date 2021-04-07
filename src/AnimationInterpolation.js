@@ -2,9 +2,9 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, SafeAreaView, StyleSheet} from 'react-native';
 
 const AnimationInterpolation = () => {
-  const translation = useRef({x: new Animated.Value(0)}).current;
+  const translation = useRef({y: new Animated.Value(0)}).current;
   useEffect(() => {
-    Animated.timing(translation.x, {
+    Animated.timing(translation.y, {
       toValue: 120,
       duration: 1500,
       useNativeDriver: true,
@@ -21,12 +21,15 @@ const AnimationInterpolation = () => {
           elevation: 9,
           transform: [
             {
-              translateX: translation.x,
+              rotate: translation.y.interpolate({
+                inputRange: [0, 30, 60, 90, 120],
+                outputRange: ['0deg', '45deg', '90deg', '135deg', '195deg'],
+              }),
             },
           ],
-          opacity: translation.x.interpolate({
+          opacity: translation.y.interpolate({
             inputRange: [0, 30, 60, 90, 120],
-            outputRange: [0.5, 0, 1, 0, 0.5],
+            outputRange: [0, 0.25, 0.5, 0.75, 1],
           }),
         }}
       />
