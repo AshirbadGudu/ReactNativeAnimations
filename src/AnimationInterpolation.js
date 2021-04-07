@@ -6,8 +6,8 @@ const AnimationInterpolation = () => {
   useEffect(() => {
     Animated.timing(translation.y, {
       toValue: 120,
-      duration: 1500,
-      useNativeDriver: true,
+      duration: 1000,
+      useNativeDriver: false,
     }).start();
   }, []);
   return (
@@ -19,6 +19,10 @@ const AnimationInterpolation = () => {
           backgroundColor: '#fff',
           borderRadius: 5,
           elevation: 9,
+          backgroundColor: translation.y.interpolate({
+            inputRange: [0, 30, 60, 90, 120],
+            outputRange: ['#42378f', '#fe5f75', '#b0f3f1', '#90d5ec', '#fff'],
+          }),
           transform: [
             {
               rotate: translation.y.interpolate({
