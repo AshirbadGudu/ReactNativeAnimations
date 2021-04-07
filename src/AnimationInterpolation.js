@@ -25,8 +25,8 @@ const AnimationInterpolation = () => {
             },
           ],
           opacity: translation.x.interpolate({
-            inputRange: [0, 120],
-            outputRange: [0, 1],
+            inputRange: [0, 30, 60, 90, 120],
+            outputRange: [0.5, 0, 1, 0, 0.5],
           }),
         }}
       />
